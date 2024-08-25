@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:budget_tracker/Budjet_helper/budjet_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -9,11 +11,17 @@ class HomeController extends GetxController {
   RxDouble totalExpense = 0.0.obs;
   TextEditingController txtAmount = TextEditingController();
   TextEditingController txtCategory = TextEditingController();
+  Rx<File>? ImgPath;
+  RxString dummyImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRU_7xOzl2JQiuJ7lMmrUc4HL0eCahsolVATw&s'.obs;
 
   @override
   void onInit() {
     super.onInit();
     initDb();
+  }
+
+  void getImg(File img) {
+    ImgPath = img.obs;
   }
 
   void setIncome(bool value) {
@@ -25,8 +33,9 @@ class HomeController extends GetxController {
     await getRecords();
   }
 
-  Future insertRecord(double amount, int isIncome, String category) async {
-    await DbHelper.dbHelper.insertData(amount, isIncome, category);
+  Future insertRecord(
+      double amount, int isIncome, String category, String img) async {
+    await DbHelper.dbHelper.insertData(amount, isIncome, category, img);
     await getRecords();
   }
 
@@ -51,8 +60,8 @@ class HomeController extends GetxController {
   }
 
   Future<void> updateRecords(
-      int id, double amount, int isIncome, String category) async {
-    await DbHelper.dbHelper.updateData(id, amount, isIncome, category);
+      int id, double amount, int isIncome, String category,String img) async {
+    await DbHelper.dbHelper.updateData(id, amount, isIncome, category,img);
     await getRecords();
   }
 }

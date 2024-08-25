@@ -9,9 +9,9 @@ class DbHelper {
 
   Database? _db;
 
-  Future get database async => _db ?? await initDatabase();
+  Future<Database> get database async => _db ?? await initDatabase();
 
-  Future initDatabase() async {
+  Future<Database> initDatabase() async {
     final path = await getDatabasesPath();
     final dbPath = join(path, 'finance.db');
 
@@ -20,45 +20,45 @@ class DbHelper {
       version: 1,
       onCreate: (db, version) async {
         String sql = '''CREATE TABLE finance(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        amount REAL NOT NULL,
-        isIncome INTEGER NOT NULL,
-        category TEXT);
-        ''';
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          amount REAL NOT NULL,
+          isIncome INTEGER NOT NULL,
+          category TEXT,
+          img TEXT
+        );'''; // Removed the extra comma
         await db.execute(sql);
       },
     );
-    return _db;
+    return _db!;
   }
 
-  Future insertData(double amount, int isIncome, String category) async {
+  Future<void> insertData(double amount, int isIncome, String category, String img) async {
     Database? db = await database;
-    String sql = '''INSERT INTO finance (amount,isIncome,category)
-    VALUES (?,?,?);
-    ''';
-    List args = [amount, isIncome, category];
-    await db!.rawInsert(sql, args);
+    String sql = '''INSERT INTO finance (amount, isIncome, category, img)
+    VALUES (?, ?, ?, ?);''';
+    List<dynamic> args = [amount, isIncome, category, img];
+    await db.rawInsert(sql, args);
   }
 
-  Future<List<Map>> readData() async {
+  Future<List<Map<String, dynamic>>> readData() async {
     Database? db = await database;
     String sql = '''SELECT * FROM finance''';
-    return await db!.rawQuery(sql);
+    return await db.rawQuery(sql);
   }
 
-  Future deleteData(int id) async {
+  Future<void> deleteData(int id) async {
     Database? db = await database;
     String sql = '''DELETE FROM finance WHERE id = ?''';
-    List args = [id];
-    await db!.rawDelete(sql, args);
+    List<dynamic> args = [id];
+    await db.rawDelete(sql, args);
   }
 
   Future<void> updateData(
-      int id, double amount, int isIncome, String category) async {
+      int id, double amount, int isIncome, String category, String img) async {
     Database? db = await database;
     String sql =
-    '''UPDATE finance SET amount=?,isIncome=?,category=? WHERE  id=?;''';
-    List args = [amount, isIncome, category, id];
-    await db!.rawUpdate(sql, args);
+    '''UPDATE finance SET amount = ?, isIncome = ?, category = ?, img = ? WHERE id = ?;''';
+    List<dynamic> args = [amount, isIncome, category, img, id]; // Corrected the order of arguments
+    await db.rawUpdate(sql, args);
   }
 }

@@ -1,3 +1,4 @@
+import 'dart:io';
 
 import 'package:budget_tracker/Components/Add_data/add_data.dart';
 import 'package:budget_tracker/Components/Update_data/Update_data.dart';
@@ -20,7 +21,7 @@ class HomePage extends StatelessWidget {
         elevation: 4,
       ),
       body: Obx(
-            () => Column(
+        () => Column(
           children: [
             Padding(
               padding: const EdgeInsets.all(10),
@@ -29,14 +30,22 @@ class HomePage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Text('Income : ',style: TextStyle(fontSize: 17.3),),
+                      const Text(
+                        'Income : ',
+                        style: TextStyle(fontSize: 17.3),
+                      ),
                       Text(
                         controller.totalIncome.value.toString(),
-                        style: const TextStyle(color: Colors.green, fontSize: 17),
+                        style:
+                            const TextStyle(color: Colors.green, fontSize: 17),
                       ),
-                      const Text('Expense : ',style: TextStyle(fontSize: 17.3),),
+                      const Text(
+                        'Expense : ',
+                        style: TextStyle(fontSize: 17.3),
+                      ),
                       Text(controller.totalExpense.value.toString(),
-                          style: const TextStyle(color: Colors.red, fontSize: 17)),
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 17)),
                     ],
                   )),
             ),
@@ -49,11 +58,14 @@ class HomePage extends StatelessWidget {
                         ? Colors.green.shade200
                         : Colors.red.shade200,
                     child: ListTile(
-                        leading: Text(controller.data[index]['id'].toString()),
+                        leading: CircleAvatar(
+                          radius: 30,
+                          backgroundImage: FileImage(File(controller.data[index]['img'])),
+                        ),
                         title:
-                        Text(controller.data[index]['amount'].toString()),
+                            Text(controller.data[index]['amount'].toString()),
                         subtitle:
-                        Text(controller.data[index]['category'].toString()),
+                            Text(controller.data[index]['category'].toString()),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [

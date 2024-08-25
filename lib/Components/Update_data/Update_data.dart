@@ -52,13 +52,13 @@ IconButton buildIconButton(BuildContext context, HomeController controller, int 
               ),
               MaterialButton(
                 onPressed: () {
-
                   controller.updateRecords(
                     controller.data[index]['id'],
                     double.parse(
                         controller.txtAmount.text),
                     controller.isIncome.value ? 1 : 0,
                     controller.txtCategory.text,
+                    controller.ImgPath!.value.path,
                   );
                   controller.txtAmount.clear();
                   controller.txtCategory.clear();
