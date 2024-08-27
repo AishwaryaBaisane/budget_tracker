@@ -39,11 +39,20 @@ class DbHelper {
     List<dynamic> args = [amount, isIncome, category, img];
     await db.rawInsert(sql, args);
   }
-
-  Future<List<Map<String, dynamic>>> readData() async {
+  Future<List<Map<String, Object?>>> readData()
+  async {
     Database? db = await database;
-    String sql = '''SELECT * FROM finance''';
-    return await db.rawQuery(sql);
+    String sql ='''
+    SELECT * FROM finance
+    ''';
+    return await db!.rawQuery(sql);
+  }
+
+  Future<List<Map<String, Object?>>> readIncomeData(int isIncome) async {
+    Database? db = await database;
+    String sql = '''SELECT * FROM finance WHERE isIncome = ?''';
+    List args =[isIncome];
+    return await db.rawQuery(sql,args);
   }
 
   Future<void> deleteData(int id) async {

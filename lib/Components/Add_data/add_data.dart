@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-FloatingActionButton buildFloatingActionButton(
-    BuildContext context, HomeController controller) {
+FloatingActionButton buildFloatingActionButton(BuildContext context, HomeController controller) {
   return FloatingActionButton(
-    backgroundColor: Colors.green.shade200,
+    focusColor: Colors.black26,
+    backgroundColor: Colors.red,
     onPressed: () {
       showDialog(
         context: context,
@@ -20,19 +20,25 @@ FloatingActionButton buildFloatingActionButton(
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-            Obx(() =>   GestureDetector(
-              onTap: () async {
-                ImagePicker imagePicker = ImagePicker();
-                XFile? xFile = await imagePicker.pickImage(source: ImageSource.gallery);
-                String path = xFile!.path;
-                File fileImage = File(path);
-                controller.getImg(fileImage);
-              },
-              child: CircleAvatar(
-                radius: 30,
-                backgroundImage: (controller.ImgPath!=null)?FileImage(controller.ImgPath!.value):NetworkImage(controller.dummyImage.value),
+              Obx(
+                () => GestureDetector(
+                  onTap: () async {
+                    ImagePicker imagePicker = ImagePicker();
+                    XFile? xFile = await imagePicker.pickImage(
+                        source: ImageSource.gallery);
+                    String path = xFile!.path;
+                    File fileImage = File(path);
+                    controller.getImg(fileImage);
+                  },
+                  child: CircleAvatar(
+                    radius: 35,
+                    backgroundImage: (controller.ImgPath != null)
+                        ? FileImage(controller.ImgPath!.value)
+                        : NetworkImage(controller.dummyImage.value),
+                  ),
+                ),
               ),
-            ),),
+              SizedBox(height: 30,),
               TextField(
                 controller: controller.txtAmount,
                 decoration: InputDecoration(
@@ -86,7 +92,8 @@ FloatingActionButton buildFloatingActionButton(
                   double amount = double.parse(controller.txtAmount.text);
                   int isIncome = controller.isIncome.value ? 1 : 0;
                   String category = controller.txtCategory.text;
-                  controller.insertRecord(amount, isIncome, category, controller.ImgPath!.value.path);
+                  controller.insertRecord(amount, isIncome, category,
+                      controller.ImgPath!.value.path);
                   controller.txtAmount.clear();
                   controller.txtCategory.clear();
                   Get.back();
@@ -101,8 +108,26 @@ FloatingActionButton buildFloatingActionButton(
       );
     },
     child: Text(
-      "add",
-      style: TextStyle(color: Colors.red, fontSize: 16),
+      "Add",
+      style: TextStyle(color: Colors.white, fontSize: 16),
     ),
   );
 }
+//   Card(
+//         child: Padding(
+//           padding: const EdgeInsets.all(10),
+//           child: Row(
+//             children: [
+//               const Text(
+//                 'Total : ',
+//                 style: TextStyle(fontSize: 17.3),
+//               ),
+//               Text(
+//                 controller.totalIncome.value.toString(),
+//                 style:
+//                 const TextStyle(color: Colors.green, fontSize: 17),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),

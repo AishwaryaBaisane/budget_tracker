@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:budget_tracker/Components/Add_data/add_data.dart';
 import 'package:budget_tracker/Components/Update_data/Update_data.dart';
 import 'package:budget_tracker/Controller/budjet_controller.dart';
@@ -14,40 +13,90 @@ class HomePage extends StatelessWidget {
     var controller = Get.put(HomeController());
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.red,
         centerTitle: true,
-        title: const Text('Budget Tracker'),
-        shadowColor: Colors.black54,
+        title: const Text('Budget Tracker',style: TextStyle(color: Colors.white),),
+        shadowColor: Colors.white,
         elevation: 4,
       ),
       body: Obx(
         () => Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Card(
-                  color: Colors.white,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const Text(
-                        'Income : ',
-                        style: TextStyle(fontSize: 17.3),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        controller.readIncomeRecord(1);
+                      },
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            children: [
+                              const Text(
+                                'Income : ',
+                                style: TextStyle(fontSize: 17.3),
+                              ),
+                              Text(
+                                controller.totalIncome.value.toString(),
+                                style:
+                                const TextStyle(color: Colors.green, fontSize: 17),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      Text(
-                        controller.totalIncome.value.toString(),
-                        style:
-                            const TextStyle(color: Colors.green, fontSize: 17),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        controller.readIncomeRecord(0);
+                      },
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            children: [
+                              const Text(
+                                'Expense : ',
+                                style: TextStyle(fontSize: 17.3),
+                              ),
+                              Text(controller.totalExpense.value.toString(),
+                                  style:
+                                  const TextStyle(color: Colors.red, fontSize: 17)),
+                            ],
+                          ),
+                        ),
                       ),
-                      const Text(
-                        'Expense : ',
-                        style: TextStyle(fontSize: 17.3),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        controller.getRecords();
+                      },
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            children: [
+                              const Text(
+                                'All Data : ',
+                                style: TextStyle(fontSize: 17.3),
+                              ),
+                              Text(controller.totalExpense.value.toString() + controller.totalIncome.value.toString(),
+                                  style:
+                                  const TextStyle(color: Colors.blue, fontSize: 17)),
+                            ],
+                          ),
+                        ),
                       ),
-                      Text(controller.totalExpense.value.toString(),
-                          style:
-                              const TextStyle(color: Colors.red, fontSize: 17)),
-                    ],
-                  )),
+                    )
+                  ],
+                ),
+              ),
             ),
             Expanded(
               child: ListView.builder(
@@ -93,3 +142,4 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+// var selectIndex = 0;
