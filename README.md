@@ -33,4 +33,26 @@ Package Name:
 
 https://github.com/user-attachments/assets/24e2c858-1405-4436-b7c4-0caa340e1871
 
+## Key Features:
+- Search with category Name : With Text Edit Controller 
+
+```
+ Future<List<Map<String, Object?>>> readLiveData(String category)
+  async {
+   Database? db = await database;
+   String sql = "SELECT * FROM finance WHERE category LIKE '%$category%'";
+   return await db!.rawQuery(sql);
+  }
+
+```dart
+
+<p>
+  <img src ="https://github.com/user-attachments/assets/a6b74e1c-fbf4-4255-8b8b-7fbac7883c5d" height=25% width=30%>
+  <img src ="https://github.com/user-attachments/assets/d25fb656-89b2-420d-aad6-c65c90f4959d" height=25% width=30%>
+</p>
+
+
+
+https://github.com/user-attachments/assets/339c1e2a-d322-4dfd-b9e8-c0064b9a99bf
+
 
