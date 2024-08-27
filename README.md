@@ -36,7 +36,7 @@ https://github.com/user-attachments/assets/24e2c858-1405-4436-b7c4-0caa340e1871
 ## Key Features:
 - Search with category Name : With Text Edit Controller 
 
-```
+```dart
  Future<List<Map<String, Object?>>> readLiveData(String category)
   async {
    Database? db = await database;
@@ -44,7 +44,7 @@ https://github.com/user-attachments/assets/24e2c858-1405-4436-b7c4-0caa340e1871
    return await db!.rawQuery(sql);
   }
 
-```dart
+```
 
 <p>
   <img src ="https://github.com/user-attachments/assets/a6b74e1c-fbf4-4255-8b8b-7fbac7883c5d" height=25% width=30%>
