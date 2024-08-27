@@ -22,6 +22,39 @@ class HomePage extends StatelessWidget {
       body: Obx(
         () => Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                onChanged: (value) {
+                  controller.searchRecord(value);
+                },
+                controller: controller.txtSearch,
+                cursorColor: Colors.white,
+                decoration: InputDecoration(
+                  suffixIcon: GestureDetector(
+                    onTap: () {},
+                    child: const Icon(Icons.close),
+                  ),
+                  prefixIcon: const Icon(Icons.search),
+                  hintText: 'Search data',
+                  hintStyle: const TextStyle(color: Colors.black),
+                  fillColor: Colors.black,
+                  enabledBorder:  OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: const BorderSide(
+                      color: Colors.black,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(
+                      color: Colors.black,
+                      width: 1,
+                    ),
+                  ),
+                ),
+              ),
+            ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Padding(

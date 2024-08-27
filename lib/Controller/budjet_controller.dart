@@ -8,6 +8,8 @@ class HomeController extends GetxController {
   RxBool isIncome = false.obs;
   RxDouble totalIncome = 0.0.obs;
   RxDouble totalExpense = 0.0.obs;
+
+  TextEditingController txtSearch = TextEditingController();
   TextEditingController txtAmount = TextEditingController();
   TextEditingController txtCategory = TextEditingController();
   Rx<File>? ImgPath;
@@ -23,6 +25,11 @@ class HomeController extends GetxController {
 
   void getImg(File img) {
     ImgPath = img.obs;
+  }
+
+  Future<void> searchRecord(String value)
+  async {
+    data.value = await DbHelper.dbHelper.readLiveData(value);
   }
 
   void setIncome(bool value) {

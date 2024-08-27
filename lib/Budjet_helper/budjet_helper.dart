@@ -48,6 +48,13 @@ class DbHelper {
     return await db!.rawQuery(sql);
   }
 
+  Future<List<Map<String, Object?>>> readLiveData(String category)
+  async {
+   Database? db = await database;
+   String sql = "SELECT * FROM finance WHERE category LIKE '%$category%'";
+   return await db!.rawQuery(sql);
+  }
+
   Future<List<Map<String, Object?>>> readIncomeData(int isIncome) async {
     Database? db = await database;
     String sql = '''SELECT * FROM finance WHERE isIncome = ?''';
